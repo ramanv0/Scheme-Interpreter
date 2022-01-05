@@ -74,7 +74,7 @@ A special form is an expression that follows special evaluation rules. This Sche
         scm> (begin (print 3) '(+ 2 3))
         3
         (+ 2 3)
-  - Implemented by the `eval_all` function (which is called from `do_begin_form`).
+  - Implemented by the `do_begin_form` function, which calls `eval_all`.
   
 - User-Defined Procedures:
   - User-defined procedures are represented as instances of the `LambdaProcedure` class. A `LambdaProcedure` instance has three instance attributes:
