@@ -16,7 +16,7 @@ Here is a brief overview of each of the Read-Eval-Print Loop components of the i
 The reader parses Scheme code into Python values with the following representations:
 
 | Input Example | Scheme Expression Type | Internal Representation |
-| :-----------: | :--------------------: | :---------------------: |
+| :------------ | :--------------------- | :---------------------- |
 | `scm> 1` | Numbers | Python's built-in `int` and `float` values |
 | `scm> x` | Symbols | Python's built-in `string` values |
 | `scm> #t` | Booleans (`#t`, `#f`) | Python's built-in `True`, `False` values |
