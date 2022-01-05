@@ -12,6 +12,32 @@ Here is a brief overview of each of the Read-Eval-Print Loop components of the i
 - **Print**: This step prints the `__str__` representation of the obtained value.
 - **Loop**: The logic for the loop is handled by the `read_eval_print_loop` function in `scheme.py`.
 
+## The Reader
+The reader parses Scheme code into Python values with the following representations:
+
+| Input Example | Scheme Expression Type | Internal Representation |
+| :------------ | :--------------------- | :---------------------- |
+| `scm> 1` | Numbers | Python's built-in `int` and `float` values |
+| `scm> x` | Symbols | Python's built-in `string` values |
+| `scm> #t` | Booleans (`#t`, `#f`) | Python's built-in `True`, `False` values |
+| `scm> (+ 2 3)` | Combinations | Instances of the `Pair` class, defined in `scheme_reader.py` |
+| `scm> nil` | `nil` | The `nil` object, defined in `scheme_reader.py` |
+
+The reader is implemented such that tokens are stored ready to be parsed in `Buffer` instances. For example, a buffer containing the input `(+ (2 3))` would have the tokens `'('`, `'+'`, `'('`, `2`, `3`, `')'`, and `')'`. See the doctests in `buffer.py` for more examples.
+
+The parsing functionality consists of two mutually recursive functions: `scheme_read` and `read_tail`. These functions each take in a single parameter, `src`, which is an instance of `Buffer`.
+
+## The Evaluator
+The evaluator consists of the following components:
+- `scheme_eval` evaluates a Scheme expression in the given environment.
+  - When evaluating a special form, `scheme_eval` redirects evaluation to an appropriate `do_?_form` function found in the Special Forms section in `scheme.py`.
+- `scheme_apply` applies a procedure to some arguments.
+- The `.apply` methods in subclasses of `Procedure` and the `make_call_frame` function assist in applying built-in and user-defined procedures.
+- The `Frame` class implements an environment frame.
+- The `LambdaProcedure` class (in the Procedures section) represents user-defined procedures.
+
+These are all of the essential components of the interpreter; the rest of `scheme.py` defines special forms and input/output behavior.
+
 ## Running the Interpreter
 To start an interactive Scheme interpreter session, type:
 
